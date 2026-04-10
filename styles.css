@@ -68,3 +68,14 @@ input::-webkit-inner-spin-button {
     border-color: var(--primary);
     background-color: rgba(95, 158, 160, 0.05);
 }
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.6s ease;
+}
+
+.fade-up.show {
+  opacity: 1;
+  transform: translateY(0);
+}
