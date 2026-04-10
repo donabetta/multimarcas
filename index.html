@@ -133,9 +133,11 @@
                         <div>
                             <p class="text-lg font-medium text-gray-700">Envie fotos da sua loja!</p>
                             <p class="text-sm text-gray-400 mt-1">(Máx. 25MB total)</p>
+                            <!-- PREVIEW DAS IMAGENS -->
+<div id="preview-container" class="mt-4 flex flex-wrap gap-3"></div>
+
+<div id="file-list" class="text-xs text-[#5F9EA0] font-medium hidden">
                         </div>
-                        <div id="file-list" class="text-xs text-[#5F9EA0] font-medium hidden">
-                            <!-- Files count will appear here -->
                         </div>
                     </div>
                 </div>
@@ -156,5 +158,46 @@
     </main>
 
     <script type="module" src="form_handler.js"></script>
+
+    <script>
+const input = document.getElementById('fotos_loja');
+const previewContainer = document.getElementById('preview-container');
+
+let filesArray = [];
+
+input.addEventListener('change', (event) => {
+  const files = Array.from(event.target.files);
+
+  files.forEach(file => {
+    filesArray.push(file);
+
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+      const preview = document.createElement('div');
+      preview.className = "relative w-24 h-24 rounded-lg overflow-hidden border border-gray-200";
+
+      preview.innerHTML = `
+        <img src="${e.target.result}" class="w-full h-full object-cover">
+        <button class="absolute top-1 right-1 bg-[#4dcdc6] text-white w-5 h-5 flex items-center justify-center rounded-full text-xs">×</button>
+      `;
+
+      preview.querySelector('button').addEventListener('click', () => {
+        preview.remove();
+        filesArray = filesArray.filter(f => f !== file);
+      });
+
+      previewContainer.appendChild(preview);
+    };
+
+    reader.readAsDataURL(file);
+  });
+
+  input.value = "";
+});
+</script>
+
+</body>
+</html>
 </body>
 </html>
