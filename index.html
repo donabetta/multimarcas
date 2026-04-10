@@ -133,7 +133,7 @@
                         </div>
                         <div>
                             <p class="text-lg font-medium text-gray-700">Envie fotos da sua loja!</p>
-                            <p class="text-sm text-gray-400 mt-1">(Máx. 25MB total)</p>
+                            <p class="text-sm text-gray-400 mt-1">(Máx. 10MB total)</p>
                             <!-- PREVIEW DAS IMAGENS -->
 <div id="preview-container" class="mt-4 flex flex-wrap gap-3"></div>
 
@@ -214,5 +214,118 @@ document.querySelectorAll('.fade-up').forEach(el => {
 });
 </script>
 
+    <script>
+const input = document.getElementById('file-input');
+const previewContainer = document.getElementById('preview-container');
+
+let compressedFiles = [];
+
+// QUANDO SELECIONA IMAGENS
+input.addEventListener('change', async (event) => {
+  const selectedFiles = Array.from(event.target.files);
+
+  for (const file of selectedFiles) {
+    const compressedFile = await compressImage(file);
+    compressedFiles.push(compressedFile);
+    addPreview(compressedFile);
+  }
+
+  updateInputFiles();
+  input.value = "";
+});
+
+// COMPRESSÃO + REDIMENSIONAMENTO
+function compressImage(file) {
+  return new Promise((resolve) => {
+    if (!file.type.startsWith("image/")) {
+      resolve(file);
+      return;
+    }
+
+    const img = new Image();
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      img.src = e.target.result;
+    };
+
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+
+      let width = img.width;
+      let height = img.height;
+
+      const maxSize = 1600;
+
+      // REDIMENSIONA
+      if (width > maxSize || height > maxSize) {
+        if (width > height) {
+          height *= maxSize / width;
+          width = maxSize;
+        } else {
+          width *= maxSize / height;
+          height = maxSize;
+        }
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+
+      ctx.drawImage(img, 0, 0, width, height);
+
+      // CONVERTE PRA JPEG (mais leve)
+      canvas.toBlob((blob) => {
+        const newFile = new File(
+          [blob],
+          file.name.replace(/\.\w+$/, ".jpg"),
+          { type: "image/jpeg" }
+        );
+        resolve(newFile);
+      }, "image/jpeg", 0.75);
+    };
+
+    reader.readAsDataURL(file);
+  });
+}
+
+// CRIA PREVIEW
+function addPreview(file) {
+  const reader = new FileReader();
+
+  reader.onload = function(e) {
+    const preview = document.createElement('div');
+    preview.className = "relative w-24 h-24 rounded-lg overflow-hidden border border-gray-200";
+
+    preview.innerHTML = `
+      <img src="${e.target.result}" class="w-full h-full object-cover">
+      <button class="absolute top-1 right-1 bg-[#4dcdc6] text-white w-5 h-5 flex items-center justify-center rounded-full text-xs">×</button>
+    `;
+
+    // REMOVER IMAGEM
+    preview.querySelector('button').addEventListener('click', () => {
+      preview.remove();
+      compressedFiles = compressedFiles.filter(f => f !== file);
+      updateInputFiles();
+    });
+
+    previewContainer.appendChild(preview);
+  };
+
+  reader.readAsDataURL(file);
+}
+
+// ATUALIZA INPUT PRA ENVIO REAL
+function updateInputFiles() {
+  const dataTransfer = new DataTransfer();
+
+  compressedFiles.forEach(file => {
+    dataTransfer.items.add(file);
+  });
+
+  input.files = dataTransfer.files;
+}
+</script>
+    
 </body>
 </html>
