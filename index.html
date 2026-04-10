@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dona Betta | Multimarca</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+</head>
+<body class="bg-[#F8F9FA] text-[#2D3436] font-['Inter'] antialiased">
+
+    <!-- Header -->
+    <header class="w-full bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100 shadow-sm py-6">
+        <div class="container mx-auto flex justify-center items-center">
+            <div class="logo-placeholder w-48 h-12 border border-dashed border-gray-200 rounded flex items-center justify-center bg-gray-50/50">
+                <i data-lucide="image" class="w-5 h-5 text-gray-300 mr-2"></i>
+                <span class="text-xs uppercase tracking-widest text-gray-400 font-medium">Logo Dona Betta</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-16 max-w-4xl">
+        <!-- Hero Section -->
+        <div class="text-center mb-16">
+            <h1 class="text-3xl md:text-4xl font-light mb-4 tracking-tight text-[#1A1A1A]">
+                Venda <span class="font-medium">Dona Betta</span> na sua Multimarca!
+            </h1>
+            <p class="text-gray-500 font-light">preencha o formulário e nossa equipe entrará em contato</p>
+        </div>
+
+        <!-- Form -->
+        <form action="https://formsubmit.co/gestao@donabetta.net" method="POST" enctype="multipart/form-data" class="space-y-12">
+            
+            <!-- Honeypot & Config -->
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_subject" value="Novo Cadastro de Multimarca - Dona Betta">
+
+            <!-- Section 1: Dados Pessoais -->
+            <section class="form-card bg-white p-8 md:p-10 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-100">
+                <div class="flex items-center mb-8 pb-4 border-b border-gray-50">
+                    <i data-lucide="user" class="w-5 h-5 text-[#5F9EA0] mr-3"></i>
+                    <h2 class="text-xl font-medium tracking-tight">Dados Pessoais</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="input-group col-span-full">
+                        <label for="nome_responsavel">Nome do Responsável</label>
+                        <input type="text" id="nome_responsavel" name="nome_responsavel" required placeholder="Ex: Maria Silva">
+                    </div>
+                    <div class="input-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" required placeholder="exemplo@email.com">
+                    </div>
+                    <div class="input-group">
+                        <label for="telefone_pessoal">Telefone</label>
+                        <input type="tel" id="telefone_pessoal" name="telefone_pessoal" required placeholder="(00) 00000-0000">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: Loja -->
+            <section class="form-card bg-white p-8 md:p-10 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-100">
+                <div class="flex items-center mb-8 pb-4 border-b border-gray-50">
+                    <i data-lucide="shopping-bag" class="w-5 h-5 text-[#5F9EA0] mr-3"></i>
+                    <h2 class="text-xl font-medium tracking-tight">Loja</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-6 gap-6">
+                    <div class="input-group md:col-span-3">
+                        <label for="nome_fantasia">Nome Fantasia</label>
+                        <input type="text" id="nome_fantasia" name="nome_fantasia" required>
+                    </div>
+                    <div class="input-group md:col-span-3">
+                        <label for="razao_social">Razão Social</label>
+                        <input type="text" id="razao_social" name="razao_social" required>
+                    </div>
+                    <div class="input-group md:col-span-3">
+                        <label for="cnpj">CNPJ</label>
+                        <input type="text" id="cnpj" name="cnpj" required placeholder="00.000.000/0000-00">
+                    </div>
+                    <div class="input-group md:col-span-3">
+                        <label for="telefone_loja">Telefone Loja</label>
+                        <input type="tel" id="telefone_loja" name="telefone_loja" required>
+                    </div>
+
+                    <div class="input-group md:col-span-2">
+                        <label for="cep">CEP</label>
+                        <input type="text" id="cep" name="cep" required>
+                    </div>
+                    <div class="input-group md:col-span-4">
+                        <label for="endereco">Endereço</label>
+                        <input type="text" id="endereco" name="endereco" required>
+                    </div>
+
+                    <div class="input-group md:col-span-2">
+                        <label for="numero">Número</label>
+                        <input type="text" id="numero" name="numero" required>
+                    </div>
+                    <div class="input-group md:col-span-4">
+                        <label for="complemento">Complemento</label>
+                        <input type="text" id="complemento" name="complemento">
+                    </div>
+
+                    <div class="input-group md:col-span-2">
+                        <label for="bairro">Bairro</label>
+                        <input type="text" id="bairro" name="bairro" required>
+                    </div>
+                    <div class="input-group md:col-span-3">
+                        <label for="cidade">Cidade</label>
+                        <input type="text" id="cidade" name="cidade" required>
+                    </div>
+                    <div class="input-group md:col-span-1">
+                        <label for="estado">Estado</label>
+                        <input type="text" id="estado" name="estado" required placeholder="UF">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Fotos -->
+            <section class="form-card bg-white p-8 md:p-10 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-100">
+                <div class="flex items-center mb-8 pb-4 border-b border-gray-50">
+                    <i data-lucide="camera" class="w-5 h-5 text-[#5F9EA0] mr-3"></i>
+                    <h2 class="text-xl font-medium tracking-tight">Vamos nos conhecer melhor</h2>
+                </div>
+
+                <div id="drop-area" class="relative group cursor-pointer border-2 border-dashed border-gray-200 rounded-xl p-12 text-center transition-all hover:border-[#5F9EA0] hover:bg-[#5F9EA0]/5">
+                    <input type="file" name="fotos_loja[]" id="fotos_loja" multiple accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                    <div class="space-y-4">
+                        <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto group-hover:scale-110 transition-transform">
+                            <i data-lucide="upload-cloud" class="w-8 h-8 text-gray-400 group-hover:text-[#5F9EA0]"></i>
+                        </div>
+                        <div>
+                            <p class="text-lg font-medium text-gray-700">Envie fotos da sua loja!</p>
+                            <p class="text-sm text-gray-400 mt-1">(Máx. 25MB total)</p>
+                        </div>
+                        <div id="file-list" class="text-xs text-[#5F9EA0] font-medium hidden">
+                            <!-- Files count will appear here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Submit -->
+            <div class="pt-6">
+                <button type="submit" class="w-full bg-[#5F9EA0] text-white py-5 rounded-xl font-medium tracking-wide shadow-lg hover:bg-[#4d8182] active:scale-[0.98] transition-all flex items-center justify-center gap-2 group">
+                    Enviar informações
+                    <i data-lucide="send" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                </button>
+            </div>
+        </form>
+
+        <footer class="mt-24 text-center pb-12">
+            <p class="text-xs text-gray-400 uppercase tracking-widest font-light">&copy; 2026 Dona Betta. Todos os direitos reservados.</p>
+        </footer>
+    </main>
+
+    <script type="module" src="form_handler.js"></script>
+</body>
+</html>

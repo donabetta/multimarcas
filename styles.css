@@ -1,0 +1,70 @@
+:root {
+    --primary: #5F9EA0;
+    --primary-dark: #4d8182;
+    --bg-main: #F8F9FA;
+    --text-main: #2D3436;
+    --border-light: #E5E7EB;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input-group label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #636e72;
+    margin-left: 0.25rem;
+}
+
+.input-group input {
+    background-color: #FFFFFF;
+    border: 1.5px solid var(--border-light);
+    border-radius: 0.75rem;
+    padding: 0.875rem 1rem;
+    font-size: 0.95rem;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    color: var(--text-main);
+    outline: none;
+}
+
+.input-group input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(95, 158, 160, 0.08);
+}
+
+.input-group input::placeholder {
+    color: #B2BEC3;
+    font-weight: 300;
+}
+
+/* Custom form section transition */
+.form-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+}
+
+/* Hide arrow on number input if used */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Animation for the drop area */
+#drop-area.drag-over {
+    border-color: var(--primary);
+    background-color: rgba(95, 158, 160, 0.05);
+}
