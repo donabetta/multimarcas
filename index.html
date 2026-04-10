@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dona Betta | Multimarcas</title>
+    <title>Dona Betta | Multimarca</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css">
@@ -12,14 +12,6 @@
     <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
 </head>
 <body class="bg-[#F8F9FA] text-[#2D3436] font-['Inter'] antialiased">
-    <body>
-
-<form action="https://formsubmit.co/gestao@donabetta.net" method="POST" enctype="multipart/form-data" style="margin: 40px;">
-  <input type="text" name="nome" value="teste"><br><br>
-  <input type="email" name="email" value="teste@teste.com"><br><br>
-  <input type="file" name="attachment" accept="image/png, image/jpeg"><br><br>
-  <button type="submit">Enviar teste</button>
-</form>
 
     <!-- Header -->
 <header class="w-full bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100 shadow-sm py-6">
@@ -32,9 +24,9 @@
         <!-- Hero Section -->
         <div class="text-center mb-16">
             <h1 class="text-3xl md:text-4xl font-light mb-4 tracking-tight text-[#1A1A1A]">
-                Venda <span class="font-medium">Dona Betta</span> na sua Multimarcas!
+                Venda <span class="font-medium">Dona Betta</span> na sua Multimarca!
             </h1>
-            <p class="text-gray-500 font-light">Preencha o formulário e nosso time entrará em contato.</p>
+            <p class="text-gray-500 font-light">Preencha o formulário e nossa equipe entrará em contato</p>
         </div>
 
         <!-- Form -->
@@ -141,7 +133,7 @@
                         </div>
                         <div>
                             <p class="text-lg font-medium text-gray-700">Envie fotos da sua loja!</p>
-                            <p class="text-sm text-gray-400 mt-1">(Máx. 10MB total)</p>
+                            <p class="text-sm text-gray-400 mt-1">(Máx. 25MB total)</p>
                             <!-- PREVIEW DAS IMAGENS -->
 <div id="preview-container" class="mt-4 flex flex-wrap gap-3"></div>
 
@@ -206,134 +198,7 @@ input.addEventListener('change', (event) => {
 });
 </script>
 
-    <script>
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('show');
-    }
-  });
-}, {
-  threshold: 0.1
-});
-
-document.querySelectorAll('.fade-up').forEach(el => {
-  observer.observe(el);
-});
-</script>
-
-    <script>
-const input = document.getElementById('file-input');
-const previewContainer = document.getElementById('preview-container');
-
-let compressedFiles = [];
-
-// QUANDO SELECIONA IMAGENS
-input.addEventListener('change', async (event) => {
-  const selectedFiles = Array.from(event.target.files);
-
-  for (const file of selectedFiles) {
-    const compressedFile = await compressImage(file);
-    compressedFiles.push(compressedFile);
-    addPreview(compressedFile);
-  }
-
-  updateInputFiles();
-  input.value = "";
-});
-
-// COMPRESSÃO + REDIMENSIONAMENTO
-function compressImage(file) {
-  return new Promise((resolve) => {
-    if (!file.type.startsWith("image/")) {
-      resolve(file);
-      return;
-    }
-
-    const img = new Image();
-    const reader = new FileReader();
-
-    reader.onload = (e) => {
-      img.src = e.target.result;
-    };
-
-    img.onload = () => {
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-
-      let width = img.width;
-      let height = img.height;
-
-      const maxSize = 1600;
-
-      // REDIMENSIONA
-      if (width > maxSize || height > maxSize) {
-        if (width > height) {
-          height *= maxSize / width;
-          width = maxSize;
-        } else {
-          width *= maxSize / height;
-          height = maxSize;
-        }
-      }
-
-      canvas.width = width;
-      canvas.height = height;
-
-      ctx.drawImage(img, 0, 0, width, height);
-
-      // CONVERTE PRA JPEG (mais leve)
-      canvas.toBlob((blob) => {
-        const newFile = new File(
-          [blob],
-          file.name.replace(/\.\w+$/, ".jpg"),
-          { type: "image/jpeg" }
-        );
-        resolve(newFile);
-      }, "image/jpeg", 0.75);
-    };
-
-    reader.readAsDataURL(file);
-  });
-}
-
-// CRIA PREVIEW
-function addPreview(file) {
-  const reader = new FileReader();
-
-  reader.onload = function(e) {
-    const preview = document.createElement('div');
-    preview.className = "relative w-24 h-24 rounded-lg overflow-hidden border border-gray-200";
-
-    preview.innerHTML = `
-      <img src="${e.target.result}" class="w-full h-full object-cover">
-      <button class="absolute top-1 right-1 bg-[#4dcdc6] text-white w-5 h-5 flex items-center justify-center rounded-full text-xs">×</button>
-    `;
-
-    // REMOVER IMAGEM
-    preview.querySelector('button').addEventListener('click', () => {
-      preview.remove();
-      compressedFiles = compressedFiles.filter(f => f !== file);
-      updateInputFiles();
-    });
-
-    previewContainer.appendChild(preview);
-  };
-
-  reader.readAsDataURL(file);
-}
-
-// ATUALIZA INPUT PRA ENVIO REAL
-function updateInputFiles() {
-  const dataTransfer = new DataTransfer();
-
-  compressedFiles.forEach(file => {
-    dataTransfer.items.add(file);
-  });
-
-  input.files = dataTransfer.files;
-}
-</script>
-    
+</body>
+</html>
 </body>
 </html>
