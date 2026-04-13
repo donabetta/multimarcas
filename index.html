@@ -123,24 +123,20 @@
                     <i data-lucide="camera" class="w-5 h-5 text-[#4dcdc6] mr-3"></i>
                     <h2 class="text-xl font-medium tracking-tight">Vamos nos conhecer melhor</h2>
                 </div>
+<div class="space-y-3">
+  <p class="text-lg font-medium text-gray-700">Envie fotos da sua loja!</p>
+  <p class="text-sm text-gray-400">(Máx. 10MB total)</p>
 
-                <div id="drop-area" class="relative group cursor-pointer border-2 border-dashed border-gray-200 rounded-xl p-12 text-center transition-all hover:border-[#5F9EA0] hover:bg-[#5F9EA0]/5">
-<input type="file" name="attachment" id="fotos_loja" form="main-form" accept="image/png, image/jpeg" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
-                    <div class="space-y-4">
-                        <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto group-hover:scale-110 transition-transform">
-                            <i data-lucide="upload-cloud" class="w-8 h-8 text-gray-400 group-hover:text-[#5F9EA0]"></i>
-                        </div>
-                        <div>
-                            <p class="text-lg font-medium text-gray-700">Envie fotos da sua loja!</p>
-                            <p class="text-sm text-gray-400 mt-1">(Máx. 10MB total)</p>
-                            <!-- PREVIEW DAS IMAGENS -->
-<div id="preview-container" class="mt-4 flex flex-wrap gap-3"></div>
+ <input type="file" name="attachment" id="file-input" accept="image/png, image/jpeg">
 
-<div id="file-list" class="text-xs text-[#5F9EA0] font-medium hidden">
-                        </div>
-                        </div>
-                    </div>
-                </div>
+  <label for="file-input" class="w-full min-h-[180px] border-2 border-dashed border-gray-200 rounded-2xl bg-gray-50/60 flex flex-col items-center justify-center text-center cursor-pointer hover:border-[#4dcdc6] transition">
+    <span class="text-base font-medium text-gray-700">Clique para selecionar uma imagem</span>
+    <span class="text-sm text-gray-400">PNG ou JPG</span>
+  </label>
+
+  <p id="file-name" class="text-sm text-[#4dcdc6] hidden"></p>
+</div>
+
             </section>
     
     <div style="margin-top: 20px;">
@@ -162,43 +158,18 @@
         </footer>
     </main>
 
-    <script type="module" src="form_handler.js"></script>
+<script>
+const fileInput = document.getElementById('file-input');
+const fileName = document.getElementById('file-name');
 
-    <script>
-const input = document.getElementById('fotos_loja');
-const previewContainer = document.getElementById('preview-container');
-
-let filesArray = [];
-
-input.addEventListener('change', (event) => {
-  const files = Array.from(event.target.files);
-
-  files.forEach(file => {
-    filesArray.push(file);
-
-    const reader = new FileReader();
-
-    reader.onload = function(e) {
-      const preview = document.createElement('div');
-      preview.className = "relative w-24 h-24 rounded-lg overflow-hidden border border-gray-200";
-
-      preview.innerHTML = `
-        <img src="${e.target.result}" class="w-full h-full object-cover">
-        <button class="absolute top-1 right-1 bg-[#4dcdc6] text-white w-5 h-5 flex items-center justify-center rounded-full text-xs">×</button>
-      `;
-
-      preview.querySelector('button').addEventListener('click', () => {
-        preview.remove();
-        filesArray = filesArray.filter(f => f !== file);
-      });
-
-      previewContainer.appendChild(preview);
-    };
-
-    reader.readAsDataURL(file);
-  });
-
-  input.value = "";
+fileInput.addEventListener('change', function () {
+  if (fileInput.files.length > 0) {
+    fileName.textContent = `Imagem selecionada: ${fileInput.files[0].name}`;
+    fileName.classList.remove('hidden');
+  } else {
+    fileName.textContent = '';
+    fileName.classList.add('hidden');
+  }
 });
 </script>
 
